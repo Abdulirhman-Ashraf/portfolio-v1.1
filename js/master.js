@@ -44,6 +44,13 @@ btnMenu.addEventListener("click", function () {
 });
 
 
+if(navigator.serviceWorker){
+  navigator.serviceWorker.register("../sw.js")
+  .then((reg)=>{
+console.log("file is register" ,reg)
+  }).catch((err)=>console.log("Error",err))
+}
+
 // show more function
 btn.addEventListener("click", function show() {
   if (btn.innerHTML == "Show more") {
@@ -57,10 +64,3 @@ btn.addEventListener("click", function show() {
     card[i].classList.toggle("hidden");
   }
 });
-
-if(navigator.serviceWorker){
-  navigator.serviceWorker.register("../sw.js")
-  .then((reg)=>{
-console.log("file is register" ,reg)
-  }).catch((err)=>console.log("Error",err))
-}
