@@ -42,12 +42,7 @@ let uls = document.querySelector(".ulMenu");
 btnMenu.addEventListener("click", function () {
   uls.classList.toggle("toggleMenu");
 });
-// textArea Limit Character
-let max = document.querySelector(".max");
-let textarea = document.querySelector("textarea");
-function textLimit() {
-  max.innerHTML = `Remaining Character : ${250 - textarea.value.length}`;
-}
+
 
 // show more function
 btn.addEventListener("click", function show() {
