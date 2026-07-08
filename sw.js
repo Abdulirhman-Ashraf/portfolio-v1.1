@@ -33,7 +33,7 @@ self.addEventListener("install", (e) => {
       .open(cacheName)
       // store my assets in this folder
       .then((cache) => {
-        cache.addAll(assets);
+      return cache.addAll(assets);
       })
       .catch((err) => console.log("Error", err)),
   );
