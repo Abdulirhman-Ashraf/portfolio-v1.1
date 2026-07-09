@@ -1,4 +1,4 @@
-const cacheName = "Portfolio";
+const cacheName = "Portfolio-v2";
 const assets = [
   "/",
   "/index.html",
@@ -7,6 +7,12 @@ const assets = [
   "/projects.html",
   "/style/style.css",
   "/style/all.min.css",
+  "/webfonts/fa-solid-900.woff2",
+  "/webfonts/fa-solid-900.ttf",
+  "/webfonts/fa-regular-400.woff2",
+  "/webfonts/fa-regular-400.ttf",
+  "/webfonts/fa-brands-400.woff2",
+  "/webfonts/fa-brands-400.ttf",
   "/js/master.js",
   "/imags/android/launchericon-48x48.png",
   "/imags/android/launchericon-72x72.png",
@@ -19,6 +25,9 @@ const assets = [
   "/imags/site.png",
   "/imags/step.png",
   "/imags/todo.png",
+  "/imags/simple-icons--axios.svg",
+  "/imags/selfhst--firebase.svg",
+  "/imags/logos--pwa.svg",
   "/imags/weather.png",
   "/manifest.json",
   "https://unpkg.com/aos@2.3.1/dist/aos.css",
@@ -33,37 +42,41 @@ self.addEventListener("install", (e) => {
       .open(cacheName)
       // store my assets in this folder
       .then((cache) => {
-      return cache.addAll(assets);
+        self.skipWaiting();
+
+        return cache.addAll(assets);
       })
       .catch((err) => console.log("Error", err)),
   );
 });
 
 self.addEventListener("activate", (e) => {
-  // plz wait until success my promise
   e.waitUntil(
-    // Give me all caches
     caches.keys().then((keys) => {
-      // wait all
       return Promise.all(
-        // where is my elders sons ?
         keys
           .filter((key) => key != cacheName)
-          //goodbey, i love only your youngsters
           .map((key) => caches.delete(key)),
       );
-    }),
+    }).then(() => {
+      return self.clients.claim(); 
+    })
   );
 });
 
 // fetch data s.w pov
 self.addEventListener("fetch", (e) => {
-    // wait! wait! browser,i will do that 
+  // wait! wait! browser,i will do that
   e.respondWith(
     // so let's see if i have your request
-    caches.match(e.request)
-    // yes yes here you are
-    .then((res) => res || 
-    // iam sorry let ask server
-    fetch(e.request)));
+    caches
+      .match(e.request)
+      // yes yes here you are
+      .then(
+        (res) =>
+          res ||
+          // iam sorry let ask server
+          fetch(e.request),
+      ),
+  );
 });

@@ -49,6 +49,8 @@ if(navigator.serviceWorker){
   .then((reg)=>{
 console.log("file is register" ,reg)
   }).catch((err)=>console.log("Error",err))
+
+  
 }
 
 // show more function
